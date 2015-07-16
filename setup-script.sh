@@ -13,7 +13,7 @@ function install_docker_gcloud() {
   curl -sSL https://get.docker.com | sudo sh
   # Start docker
   sudo /etc/init.d/docker restart
-  sudo gcloud components update preview app app-engine-java app-engine-python -q
+  gcloud components update preview app -q
 }
 
 install_docker_gcloud &
