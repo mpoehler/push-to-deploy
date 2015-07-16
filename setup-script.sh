@@ -2,7 +2,7 @@
 
 export PATH=$PATH:/opt/bitnami/java/bin
 
-echo "Installing required packages"
+echo "Installing required system packages"
 apt-get install -y -qq zip
 
 function install_docker_gcloud() {
@@ -12,8 +12,12 @@ function install_docker_gcloud() {
   echo "Installing Docker"
   curl -sSL https://get.docker.com | sudo sh
   # Start docker
+  echo "Start Docker"
   sudo /etc/init.d/docker restart
+  
+  echo "update gcloud components"
   gcloud components update preview app -q
+  echo "finished gcloud components update"
 }
 
 install_docker_gcloud &
@@ -89,8 +93,10 @@ done
 # Restart Jenkins now,  Bitnami image requires Tomcat to also be restarted.
 service bitnami restart
 
-# Wait for docker & gcloud installation to be complete
+echo "Wait for docker & gcloud installation to be complete"
 wait
+
+echo "docker & gcloud installation to be completed"
 
 for SLAVE_NAME in cloud-dev-{python,java,php,go}; do
   IMAGE_NAME="container.cloud.google.com/_b_dev_containers/$SLAVE_NAME:prod"
