@@ -100,7 +100,7 @@ echo "docker & gcloud installation to be completed"
 
 for SLAVE_NAME in cloud-dev-{python,java,php,go}; do
   IMAGE_NAME="container.cloud.google.com/_b_dev_containers/$SLAVE_NAME:prod"
-  gcloud preview docker pull $IMAGE_NAME
+  gcloud docker pull $IMAGE_NAME
 
   # Add a slave
   java -jar jenkins-cli.jar create-node $SLAVE_NAME <<CONFIG_XML_SLAVE
